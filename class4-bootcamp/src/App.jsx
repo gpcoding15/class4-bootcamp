@@ -1,3 +1,4 @@
+import { Notes } from "./components/Notes";
 const notes = [
   {
     id: 1,
@@ -30,7 +31,7 @@ export const App = () => {
   return (
     <div>
       <ul>
-        {notes.map((note) => <li key={note.id}>{note.content}</li>)}
+        {notes.map((note) => <Notes key={note.id} content={note.content}/>)}
       </ul>
     </div>
     
