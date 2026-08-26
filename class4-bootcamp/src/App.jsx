@@ -63,6 +63,7 @@ export const App = () => {
       <ul>
         {courses.parts.map((course) => <Courses key={course.id} name={course.name} exercises={course.exercises}/>)}
       </ul>
+      <p><strong>Total tasks: {courses.parts.length}</strong></p>
     </div>
     
   )
