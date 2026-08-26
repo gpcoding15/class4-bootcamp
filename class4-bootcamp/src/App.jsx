@@ -1,3 +1,4 @@
+import { Courses } from "./components/Courses";
 import { Notes } from "./components/Notes";
 const notes = [
   {
@@ -26,12 +27,41 @@ const notes = [
   }
 ];
 
+ const courses = {
+    name: 'Half Stack application development',
+    id: 1,
+    parts: [
+      {
+        name: 'Fundamentals of React',
+        exercises: 10,
+        id: 1
+      },
+      {
+        name: 'Using props to pass data',
+        exercises: 7,
+        id: 2
+      },
+      {
+        name: 'State of a component',
+        exercises: 14,
+        id: 3
+      }
+    ]
+  }
+
+
 export const App = () => {
   if (typeof notes === "undefined" || typeof notes === "undefined"  || notes.length === 0) return <p>No notes to show</p>
   return (
     <div>
+      <h1>Notes:</h1>
       <ul>
         {notes.map((note) => <Notes key={note.id} content={note.content}/>)}
+      </ul>
+
+      <h1>Courses:</h1>
+      <ul>
+        {courses.parts.map((course) => <Courses key={course.id} name={course.name} exercises={course.exercises}/>)}
       </ul>
     </div>
     
