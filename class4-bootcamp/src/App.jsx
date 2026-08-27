@@ -8,7 +8,7 @@ export const App = ({notes = []}) => {
 
   const handleNotesChange = (e) => setNewNote(e.target.value);
 
-  const handleOnSubmitNote = () => {
+  const handleOnSubmitNote = (event) => {
     event.preventDefault()
     const newNotesToAdd = {
       id: noteChecks.length + 1,
