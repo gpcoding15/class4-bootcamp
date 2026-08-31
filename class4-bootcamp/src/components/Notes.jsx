@@ -1,3 +1,3 @@
-export const Notes = ({ content}) => {
-    return (<li>{content}</li>)
+export const Notes = ({ title, body}) => {
+    return (<li>{title}  {body} </li>)
 }
