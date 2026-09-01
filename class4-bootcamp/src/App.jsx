@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { Notes } from "./components/Notes";
+import { getAllNotes } from "./services/notes/allNotes";
 
 
 export const App = () => {
@@ -11,8 +12,8 @@ export const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://jsonplaceholder.typicode.com/posts")
-        setNoteChecks(response.data)
+       const data = await getAllNotes()
+        setNoteChecks(data)
       }catch(e) {
         console.log(e.message)
       } finally {
