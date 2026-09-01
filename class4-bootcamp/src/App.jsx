@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import axios from 'axios';
 import { Notes } from "./components/Notes";
 
 
@@ -10,9 +11,8 @@ export const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://jsonplaceholder.typicode.com/posts")
-        const formatted_response = await response.json()
-        setNoteChecks(formatted_response)
+        const response = await axios.get("https://jsonplaceholder.typicode.com/posts")
+        setNoteChecks(response.data)
       }catch(e) {
         console.log(e.message)
       } finally {
