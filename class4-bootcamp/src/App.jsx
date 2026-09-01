@@ -24,16 +24,24 @@ export const App = () => {
 
   const handleNotesChange = (e) => setNewNote(e.target.value);
 
-  const handleOnSubmitNote = (event) => {
+  const handleOnSubmitNote = async (event) => {
     event.preventDefault()
-    const newNotesToAdd = {
+     const newNotesToAdd = {
       id: noteChecks.length + 1,
       title: newNote,
       body: newNote
     }
-    setNoteChecks((prevNotes) => {
-     return [...prevNotes, newNotesToAdd]
-    });
+    try {
+        const response = await axios.post("https://jsonplaceholder.typicode.com/posts", newNotesToAdd)
+        setNoteChecks((prevNotes) => {
+          return [...prevNotes, response.data]
+        });
+
+    } catch (e){
+      console.log(e.message)
+    }
+   
+    // 
     setNewNote("")
   };
 
