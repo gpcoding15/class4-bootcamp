@@ -5,6 +5,7 @@ import { Notes } from "./components/Notes";
 export const App = () => {
   const [ noteChecks, setNoteChecks ] = useState([]);
   const [ newNote, setNewNote ] = useState("");
+  const [ isLoading, setIsLoading ] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,10 +15,13 @@ export const App = () => {
         setNoteChecks(formatted_response)
       }catch(e) {
         console.log(e.message)
+      } finally {
+        setIsLoading(false)
       }
     }
     fetchData()
-  }, [noteChecks])
+  }, [])
+
   const handleNotesChange = (e) => setNewNote(e.target.value);
 
   const handleOnSubmitNote = (event) => {
@@ -33,23 +37,19 @@ export const App = () => {
     setNewNote("")
   };
 
-
-  // if (typeof notes === "undefined" || typeof notes === "undefined"  || notes.length === 0) return <p>No notes to show</p>
   return (
     <div>
-      <form onSubmit={handleOnSubmitNote}>
-        <input type="text" placeholder="Add note" onChange={handleNotesChange} value={newNote}/>
-        <button>Add note</button>
-      </form>
-      <br/>
-    
       <h1>Notes:</h1>
-       
-      <ul>
-        {noteChecks.map((note) => <Notes key={note.id} title={note.title} body={note.body} />)}
-      </ul>
+      {isLoading ? "Notes are loading" : 
+      <><form onSubmit={handleOnSubmitNote}>
+          <input type="text" placeholder="Add note" onChange={handleNotesChange} value={newNote} />
+          <button>Add note</button>
+        </form>
+        <ul>
+            {noteChecks.map((note) => <Notes key={note.id} title={note.title} body={note.body} />)}
+          </ul></>
       
-      
+      }
     </div>
     
   )
