@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from 'axios';
 import { Notes } from "./components/Notes";
-import { getAllNotes } from "./services/notes/allNotes";
+import { getAllNotes, createNote } from "./services/notes/allNotes";
 
 
 export const App = () => {
@@ -33,16 +32,15 @@ export const App = () => {
       body: newNote
     }
     try {
-        const response = await axios.post("https://jsonplaceholder.typicode.com/posts", newNotesToAdd)
+        const note = await createNote(newNotesToAdd)
         setNoteChecks((prevNotes) => {
-          return [...prevNotes, response.data]
+          return [...prevNotes, note]
         });
 
     } catch (e){
       console.log(e.message)
     }
    
-    // 
     setNewNote("")
   };
 
