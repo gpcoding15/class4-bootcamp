@@ -7,14 +7,17 @@ export const App = () => {
   const [ noteChecks, setNoteChecks ] = useState([]);
   const [ newNote, setNewNote ] = useState("");
   const [ isLoading, setIsLoading ] = useState(true)
+  const [ error, setError ] = useState("")
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-       const data = await getAllNotes()
+        setError("")
+        const data = await getAllNotes()
         setNoteChecks(data)
       }catch(e) {
         console.error(e.message)
+        setError("The service is down")
       } finally {
         setIsLoading(false)
       }
@@ -32,6 +35,7 @@ export const App = () => {
       body: newNote
     }
     try {
+        setError("")
         const note = await createNote(newNotesToAdd)
         setNoteChecks((prevNotes) => {
           return [...prevNotes, note]
@@ -39,6 +43,7 @@ export const App = () => {
 
     } catch (e){
       console.error(e.message)
+      setError("Service not available")
       console
     }
    
@@ -58,6 +63,7 @@ export const App = () => {
           </ul></>
       
       }
+      {error ? error : ""}
     </div>
     
   )
