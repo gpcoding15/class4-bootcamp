@@ -14,7 +14,7 @@ export const App = () => {
        const data = await getAllNotes()
         setNoteChecks(data)
       }catch(e) {
-        console.log(e.message)
+        console.error(e.message)
       } finally {
         setIsLoading(false)
       }
@@ -38,7 +38,8 @@ export const App = () => {
         });
 
     } catch (e){
-      console.log(e.message)
+      console.error(e.message)
+      console
     }
    
     setNewNote("")
