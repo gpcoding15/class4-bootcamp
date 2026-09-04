@@ -1,6 +1,7 @@
 const express = require("express");
 
 const app = express();
+app.use(express.json())
 
 let notes = [
   {
@@ -29,21 +30,44 @@ app.get("/", (request, response) => {
 
 app.get("/api/notes", (request, response) => {
     response.json(notes);
-})
+});
 
 app.get("/api/notes/:id", (request, response) => {
     const id =  request.params.id;
     const note = notes.find((note) => note.id === Number(id))
 
     note ? response.json(note) : response.status(404).end()
-})
+});
 
 app.delete("/api/notes/:id", (request, response) => {
     const id = request.params.id;
     notes = notes.filter((note) => note.id !== Number(id))
 
     response.status(204).end()
-})
+});
 
+app.post("/api/notes", (request, response) => {
+    const note = request.body;
+
+    if(!note || note.content) {
+      return response.status(400).json({
+        error: "note.content is missing"
+      })
+    }
+    const ids = notes.map((note) => note.id);
+    const idMax = Math.max(...ids);
+
+    const newNote = {
+      id: idMax + 1,
+      content: note.content,
+      date: new Date().toISOString(),
+      important: note.important !== undefined ? note.important : false
+    };
+
+    notes = [...notes, newNote]
+
+    response.json(newNote);
+
+})
 const PORT = 3001;
 app.listen(PORT, () => {console.log("Port listening on port " + PORT)} );
