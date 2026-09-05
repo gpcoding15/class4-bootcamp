@@ -1,7 +1,11 @@
 const express = require("express");
+const logger = require("./loggerMiddleware");
 
 const app = express();
-app.use(express.json())
+
+app.use(express.json());
+
+app.use(logger)
 
 let notes = [
   {
@@ -28,7 +32,7 @@ app.get("/", (request, response) => {
     response.send("<h1>Hello world</h1>");
 });
 
-app.get("/api/notes", (request, response) => {
+app.get("/api/notes", (request, response, next) => {
     response.json(notes);
 });
 
@@ -68,6 +72,13 @@ app.post("/api/notes", (request, response) => {
 
     response.status(201).json(newNote);
 
+});
+
+app.use((request, response) => {
+  response.status(404).json({
+    error: "Not found"
+  });
 })
+
 const PORT = 3001;
 app.listen(PORT, () => {console.log("Port listening on port " + PORT)} );
