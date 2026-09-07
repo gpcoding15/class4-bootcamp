@@ -30,9 +30,8 @@ export const App = () => {
   const handleOnSubmitNote = async (event) => {
     event.preventDefault()
      const newNotesToAdd = {
-      id: noteChecks.length + 1,
-      title: newNote,
-      body: newNote
+      content: newNote,
+      important: false
     }
     try {
         setError("")
@@ -50,21 +49,36 @@ export const App = () => {
     setNewNote("")
   };
 
+  const handleToggleImportant = (id) => {
+    setNoteChecks((prevNotes) =>
+      prevNotes.map((note) =>
+        note.id === id ? { ...note, important: !note.important } : note
+      )
+    )
+  };
+
   return (
-    <div>
+    <div className="app">
       <h1>Notes:</h1>
-      {isLoading ? "Notes are loading" : 
-      <><form onSubmit={handleOnSubmitNote}>
+      {isLoading ? <p className="loading">Notes are loading</p> :
+      <><form className="notes-form" onSubmit={handleOnSubmitNote}>
           <input type="text" placeholder="Add note" onChange={handleNotesChange} value={newNote} />
           <button>Add note</button>
         </form>
-        <ul>
-            {noteChecks.map((note) => <Notes key={note.id} title={note.title} body={note.body} />)}
+        <ul className="notes-list">
+            {noteChecks.map((note) => (
+              <Notes
+                key={note.id}
+                content={note.content}
+                important={note.important}
+                onToggleImportant={() => handleToggleImportant(note.id)}
+              />
+            ))}
           </ul></>
-      
+
       }
-      {error ? error : ""}
+      {error ? <p className="error">{error}</p> : ""}
     </div>
-    
+
   )
 }

@@ -1,0 +1,103 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #f4f5f7;
+  color: #1f2933;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem 1rem;
+}
+
+.app {
+  width: 100%;
+  max-width: 480px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.75rem 2rem 2rem;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.app h1 {
+  margin: 0 0 1.25rem;
+  font-size: 1.5rem;
+  color: #111827;
+}
+
+.notes-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.notes-form input {
+  flex: 1;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.notes-form input:focus {
+  border-color: #4f46e5;
+}
+
+.notes-form button {
+  padding: 0.55rem 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background: #4f46e5;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.notes-form button:hover {
+  background: #4338ca;
+}
+
+.notes-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.note {
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  background: #f9fafb;
+  border-left: 4px solid #d1d5db;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.note.important {
+  border-left-color: #f59e0b;
+  background: #fffbeb;
+  font-weight: 600;
+}
+
+.loading {
+  color: #6b7280;
+  font-style: italic;
+}
+
+.error {
+  margin-top: 1rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 0.9rem;
+}

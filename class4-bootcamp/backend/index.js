@@ -1,11 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const logger = require("./loggerMiddleware");
 
 const app = express();
 
 app.use(express.json());
-
-app.use(logger)
+app.use(cors());
+app.use(logger);
 
 let notes = [
   {
@@ -53,7 +54,7 @@ app.delete("/api/notes/:id", (request, response) => {
 app.post("/api/notes", (request, response) => {
     const note = request.body;
 
-    if(!note || note.content) {
+    if(!note || !note.content) {
       return response.status(400).json({
         error: "note.content is missing"
       })
